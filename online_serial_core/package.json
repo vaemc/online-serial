@@ -1,0 +1,17 @@
+{
+  "name": "online_serial_core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serialport": "^10.5.0",
+    "ws": "^8.11.0"
+  }
+}
