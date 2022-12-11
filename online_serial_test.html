@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+   <meta charset="utf-8">
+   <title>online_serial_test</title>
+</head>
+
+<body>
+
+
+
+   <textarea id="message" rows="6" cols="40" ></textarea>
+
+</body>
+<script type="text/javascript">
+
+   var ws = new WebSocket("ws://localhost:8080");
+
+   ws.onopen = function () {
+      // Web Socket 已连接上，使用 send() 方法发送数据
+      ws.send("发送数据");
+
+   };
+
+   ws.onmessage = function (evt) {
+      console.info(evt.data);
+      document.getElementById("message").value += evt.data + "\r\n";
+
+   };
+
+   ws.onclose = function () {
+
+
+   };
+</script>
+
+</html>
