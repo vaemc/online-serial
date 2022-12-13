@@ -1,6 +1,6 @@
 import express, { Express} from 'express';
 import cors from 'cors';
-import { serialRouter } from './serial/http'
+import { serialRouter } from './http/serial'
 import dotenv from 'dotenv';
 dotenv.config();
 
