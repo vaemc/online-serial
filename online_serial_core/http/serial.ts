@@ -1,7 +1,7 @@
 import { SerialPort } from "serialport";
 import express, { Express, Request, Response } from "express";
 export let serialRouter = express.Router();
-let serialStatesList: any = [];
+let serialStatusList: any = [];
 
 async function index(req: Request, res: Response) {
   res.send("Onlie Serial");
@@ -20,8 +20,8 @@ serialRouter.get("/", index);
 
 serialRouter.get("/portNumList", serialList);
 
-serialRouter.get("/serialStatesList", (req: Request, res: Response) => {
-  res.json(serialStatesList);
+serialRouter.get("/serialStatusList", (req: Request, res: Response) => {
+  res.json(serialStatusList);
 });
 
 serialRouter.post("/:portNum/:isOpen", (req: Request, res: Response) => {
@@ -37,12 +37,12 @@ serialRouter.post("/:portNum/:isOpen", (req: Request, res: Response) => {
   console.info(req.body);
 
   if (isOpen === "0") {
-    let result = serialStatesList.find(
+    let result = serialStatusList.find(
       (x: { portNum: string }) => x.portNum === portNum
     );
     if (result != null) {
       result.port.close();
-      serialStatesList = serialStatesList.filter(
+      serialStatusList = serialStatusList.filter(
         (x: { portNum: string }) => x.portNum !== portNum
       );
     }
@@ -53,7 +53,7 @@ serialRouter.post("/:portNum/:isOpen", (req: Request, res: Response) => {
       path: portNum,
       baudRate: buad,
     });
-    serialStatesList.push({
+    serialStatusList.push({
       portNum: portNum,
       port: port,
     });
