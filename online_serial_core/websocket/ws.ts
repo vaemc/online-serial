@@ -11,9 +11,9 @@ const port = new SerialPort({
     baudRate: 115200,
 })
 const parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' }))
-parser.on('data', data => {
+parser.on('data', (data: any) => {
     console.info(data);
-    wss.clients.forEach((client) => {
+    wss.clients.forEach((client: any) => {
         if (client.readyState === WebSocket.OPEN) {
             client.send(data);
         }

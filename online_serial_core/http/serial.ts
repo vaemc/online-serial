@@ -1,5 +1,8 @@
 import { SerialPort } from "serialport";
+import WebSocket, { WebSocketServer } from 'ws';
 import express, { Express, Request, Response } from "express";
+import { ReadlineParser } from '@serialport/parser-readline'
+
 export let serialRouter = express.Router();
 let serialStatusList: any = [];
 
@@ -36,7 +39,7 @@ serialRouter.post("/:portNum/:isOpen", (req: Request, res: Response) => {
   // }
   console.info(req.body);
 
-  if (isOpen === "0") {
+  if (isOpen === "OPEN") {
     let result = serialStatusList.find(
       (x: { portNum: string }) => x.portNum === portNum
     );
@@ -48,7 +51,7 @@ serialRouter.post("/:portNum/:isOpen", (req: Request, res: Response) => {
     }
   }
 
-  if (isOpen === "1") {
+  if (isOpen === "CLOSE") {
     const port = new SerialPort({
       path: portNum,
       baudRate: buad,
